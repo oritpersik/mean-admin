@@ -3,7 +3,7 @@ var mongoose = require('mongoose'),
     TwitterStrategy = require('passport-twitter').Strategy,
     FacebookStrategy = require('passport-facebook').Strategy,
     GitHubStrategy = require('passport-github').Strategy,
-    GoogleStrategy = require('passport-google-oauth').OAuth2Strategy,
+    GoogleStrategy = require('passport-google-oauth').Strategy,
     User = mongoose.model('User'),
     config = require('./config');
 
@@ -17,7 +17,7 @@ module.exports = function(passport) {
     passport.deserializeUser(function(id, done) {
         User.findOne({
             _id: id
-        }, '-salt -hashed_password', function(err, user) {
+        }, function(err, user) {
             done(err, user);
         });
     });
@@ -143,8 +143,8 @@ module.exports = function(passport) {
 
     //Use google strategy
     passport.use(new GoogleStrategy({
-            clientID: config.google.clientID,
-            clientSecret: config.google.clientSecret,
+            consumerKey: config.google.clientID,
+            consumerSecret: config.google.clientSecret,
             callbackURL: config.google.callbackURL
         },
         function(accessToken, refreshToken, profile, done) {

@@ -5,8 +5,13 @@ module.exports = function(app, passport, auth) {
     app.get('/signup', users.signup);
     app.get('/signout', users.signout);
 
-    //Setting up the users api
-    app.post('/users', users.create);
+   //Setting up the users api
+    app.get('/users', auth.requiresLogin, auth.user.isAdmin, users.all);
+    app.post('/users', auth.requiresLogin, auth.user.isAdmin, users.create);
+    app.put('/users/:userId', auth.requiresLogin, auth.user.isAdmin, users.update);
+    app.del('/users/:userId', auth.requiresLogin, auth.user.isAdmin, users.destroy);
+    
+    app.post('/users/signin', users.new);
 
     app.post('/users/session', passport.authenticate('local', {
         failureRedirect: '/signin',
@@ -15,6 +20,7 @@ module.exports = function(app, passport, auth) {
 
     app.get('/users/me', users.me);
     app.get('/users/:userId', users.show);
+
 
     //Setting the facebook oauth routes
     app.get('/auth/facebook', passport.authenticate('facebook', {
@@ -71,8 +77,25 @@ module.exports = function(app, passport, auth) {
     //Finish with setting up the articleId param
     app.param('articleId', articles.article);
 
+
+        //View Routes
+    var views = require('../app/controllers/views');
+    app.get('/cms/views', views.all);
+    app.post('/cms/views', auth.requiresLogin, auth.user.isAdmin,  views.create);
+    app.get('/cms/views/:viewId', views.show);
+    app.put('/cms/views/:viewId', auth.requiresLogin, auth.user.isAdmin, views.update);
+    app.del('/cms/views/:viewId', auth.requiresLogin, auth.user.isAdmin, views.destroy);
+
+    //Finish with setting up the viewId param
+    app.param('viewId', views.view);
+
     //Home route
     var index = require('../app/controllers/index');
     app.get('/', index.render);
+
+
+    //Admin route
+    var admin = require('../app/controllers/admin');
+    app.get('/manage', admin.render);
 
 };

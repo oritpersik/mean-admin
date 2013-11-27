@@ -1,0 +1,67 @@
+.navbar .nav>li>a.brand {
+    padding-left:20px;
+    margin-left:0
+}
+
+.content {
+    margin-top:50px;
+    width:100%
+}
+
+footer {
+    position:fixed;
+    left:0px;
+    bottom:0px;
+    height:30px;
+    width:100%;
+    background:#ddd;
+    -webkit-box-shadow:0 8px 6px 6px black;
+    -moz-box-shadow:0 8px 6px 6px black;
+    box-shadow:0 8px 6px 6px black
+}
+
+footer p {
+    padding:5px 0 12px 10px
+}
+
+.editable-wrapper{
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.editable-wrapper input {
+    margin: 0;
+    width: 96%;
+    text-align: center;
+}
+
+.table-editable-cell {
+    word-wrap: break-all;
+    -ms-word-break: break-all;
+     word-break: break-all;
+
+     word-break: break-word;
+
+-webkit-hyphens: auto;
+   -moz-hyphens: auto;
+        hyphens: auto;
+}
+
+.editable-table td {
+    vertical-align: middle; 
+    text-align: center;
+}
+
+.editable-table th {
+    text-align: center;
+}
+
+span.editable-span {
+    text-align: center; 
+    margin: 0;
+}
+
+.respect-newline {
+    white-space: pre;
+}

@@ -7,11 +7,8 @@ var express = require('express'),
     helpers = require('view-helpers'),
     config = require('./config');
 
-module.exports = function(app, passport, db) {
-    app.set('showStackError', true);    
-    
-    //Prettify HTML
-    app.locals.pretty = true;
+module.exports = function(app, passport) {
+    app.set('showStackError', true);
 
     //Should be placed before express.static
     app.use(express.compress({
@@ -41,16 +38,15 @@ module.exports = function(app, passport, db) {
         //cookieParser should be above session
         app.use(express.cookieParser());
 
-        // request body parsing middleware should be above methodOverride
-        app.use(express.urlencoded());
-        app.use(express.json());
+        //bodyParser should be above methodOverride
+        app.use(express.bodyParser());
         app.use(express.methodOverride());
 
         //express/mongo session storage
         app.use(express.session({
             secret: 'MEAN',
             store: new mongoStore({
-                db: db.connection.db,
+                url: config.db,
                 collection: 'sessions'
             })
         }));

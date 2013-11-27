@@ -1,5 +1,5 @@
 /**
- * Module dependencies. OP 
+ * Module dependencies.
  */
 var mongoose = require('mongoose'),
     Article = mongoose.model('Article'),

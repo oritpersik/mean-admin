@@ -1,0 +1,9 @@
+extends layouts/admin
+
+block content
+    header.header-container.navbar.navbar-fixed-top.navbar-inverse(data-ng-include="'admin/views/header.html'")
+    section.content
+      section.container        
+        section(ng-view)
+    script(type="text/javascript").
+        window.user = !{user};

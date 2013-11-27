@@ -1,0 +1,63 @@
+<section data-ng-controller="UsersController">
+	<form id="user-add-form" class="row-fluid form-inline" name="addUserForm" data-ng-submit="add()" >
+		<div class="">
+			<input type="text" class="span2" data-ng-model="firstName" placeholder="First Name" id="user-add-title" autofocus />
+			<input type="text" class="span2" data-ng-model="lastName" placeholder="Last Name" id="user-add-title" autofocus />
+			<input type="text" class="span2" data-ng-model="username" placeholder="Username" id="user-add-title" autofocus />
+			<input type="text" class="span2" data-ng-model="email" placeholder="Email" id="user-add-title" autofocus />
+			<input type="text" class="span2" data-ng-model="password" placeholder="Password" id="user-add-title" autofocus />
+	        <select data-ng-model="role" ng-options="role for role in roles">
+	          <option value="">-- Choose Role --</option>
+	        </select>
+		 	<input type="submit" class="btn span1" value="Add"/>
+		</div>
+	</form>
+	<div class="loader" data-ng-init="init()" data-ng-hide="users.length"></div>
+	<div class="actions-bar" data-ng-show="users.length">
+		<input type="button" class="btn btn-danger" data-ng-hide="edit" data-ng-click="edit=!edit"  value="Edit">
+		<input type="button" class="btn btn-primary" data-ng-show="edit" data-ng-click="edit=!edit"  value="Done">
+	</div>	
+	<table class="table table-striped table-bordered table-hover editable-table" data-ng-show="users.length">
+		<tr>
+			<th data-ng-show="edit">
+				Edit
+			</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Username</th>
+			<th>Email</th>
+			<th>Password</th>
+			<th>Role</th>
+		</tr>
+		<tr data-ng-repeat="user in users | orderBy: ['name']">
+			<td data-ng-show="edit">
+				<button class="btn btn-danger" data-ng-click="remove(user)" value="del" >
+					<i class="icon-trash icon-white"></i>
+				</button>	
+			</td>
+			<td class="table-editable-cell">
+				<span class="editable-span" data-ng-editable="update(user)" data-ng-editable-model="user.firstName"></span>
+			</td>
+			<td class="table-editable-cell">
+				<span class="editable-span" data-ng-editable="update(user)" data-ng-editable-model="user.lastName"></span>
+			</td>
+			<td class="table-editable-cell">
+				<span class="editable-span" data-ng-editable="update(user)" data-ng-editable-model="user.username"></span>
+			</td>
+			<td class="table-editable-cell">
+				<span class="editable-span" data-ng-editable="update(user)" data-ng-editable-model="user.email"></span>
+			</td>
+			<td class="table-editable-cell">
+				<span><a href="/mails/forgot-password?email={{user.email}}">Set New Password</a></span>
+			</td>
+			<td class="table-editable-cell">
+				<span class="editable-span" 
+					  data-ng-editable-select="update(user)" 
+					  data-ng-editable-select-model="user.role" 
+					  data-ng-editable-select-options="roles"					  
+					  data-ng-editable-select-text="getRoleName(user)">
+				</span>
+			</td>
+		</tr>
+	</table>
+</section>

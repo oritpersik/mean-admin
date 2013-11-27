@@ -1,0 +1,43 @@
+<section data-ng-controller="ViewController">
+	<h1 class="text-left">{{view.name}} Fields</h1>
+	<br>
+	<form id="view-add-form" class="row-fluid" name="addViewForm" data-ng-submit="add()" >
+		<div class="">
+			<input type="text" class="span12" data-ng-model="name" placeholder="name" id="name-add-title" autofocus />
+			<textarea class="span12" data-ng-model="label" placeholder="label" id="label-add-title"></textarea>
+		 	<input type="submit" class="btn span2" value="Add"/>
+		</div>
+	</form>
+	<div class="loader" data-ng-init="init()" data-ng-hide="view.fields.length"></div>
+	<div class="actions-bar" data-ng-show="view.fields.length">
+		<input type="button" class="btn btn-danger" data-ng-hide="edit" data-ng-click="edit=!edit"  value="Edit">
+		<input type="button" class="btn btn-primary" data-ng-show="edit" data-ng-click="edit=!edit"  value="Done">
+	</div>	
+	<br>
+	<table class="table table-striped table-bordered table-hover editable-table" data-ng-show="view.fields.length">
+		<tr>
+			<th data-ng-show="edit">
+				Edit
+			</th>
+			<th>#</th>
+			<th>Name</th>
+			<th>Label</th>
+		</tr>
+		<tr data-ng-repeat="field in view.fields | orderBy: ['name']">
+			<td data-ng-show="edit">
+				<button class="btn btn-danger" data-ng-click="remove(field)" value="del" >
+					<i class="icon-trash  icon-white"></i>
+				</button>	
+			</td>
+			<td class="table-editable-cell">
+				<span>{{field.fieldId}}</span>
+			</td>
+			<td class="table-editable-cell">
+				<span class="editable-span" data-ng-editable="update(view)" data-ng-editable-model="field.name"></span>
+			</td>
+			<td class="table-editable-cell">
+				<span class="editable-span" data-ng-editable-paragraph="update(view)" data-ng-editable-model="field.label"></span>
+			</td>
+		</tr>
+	</table>
+</section>
