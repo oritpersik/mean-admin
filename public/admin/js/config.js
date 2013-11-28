@@ -11,12 +11,6 @@ angular.module('mean-admin').config(['$routeProvider',
         when('/', {
             templateUrl: 'admin/views/index.html'
         }).
-        when('/views', {
-            templateUrl: 'admin/views/views.html'
-        }).
-        when('/views/:viewId', {
-            templateUrl: 'admin/views/view.html'
-        }).
         otherwise({
             redirectTo: '/'
         });

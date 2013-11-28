@@ -4,8 +4,5 @@ angular.module('mean-admin.system').controller('HeaderController', ['$scope', 'G
     $scope.menu = [{
         "title": "Users",
         "link": "users"
-    }, {
-        "title": "Views",
-        "link": "views"
     }];
 }]);

@@ -77,18 +77,6 @@ module.exports = function(app, passport, auth) {
     //Finish with setting up the articleId param
     app.param('articleId', articles.article);
 
-
-        //View Routes
-    var views = require('../app/controllers/views');
-    app.get('/cms/views', views.all);
-    app.post('/cms/views', auth.requiresLogin, auth.user.isAdmin,  views.create);
-    app.get('/cms/views/:viewId', views.show);
-    app.put('/cms/views/:viewId', auth.requiresLogin, auth.user.isAdmin, views.update);
-    app.del('/cms/views/:viewId', auth.requiresLogin, auth.user.isAdmin, views.destroy);
-
-    //Finish with setting up the viewId param
-    app.param('viewId', views.view);
-
     //Home route
     var index = require('../app/controllers/index');
     app.get('/', index.render);
